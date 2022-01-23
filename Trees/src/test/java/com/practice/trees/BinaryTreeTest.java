@@ -8,8 +8,9 @@ import java.util.List;
 
 /**
  * root ->            50
- * 40        60
- * 30      45  55     65
+ *              40        60
+ *          30      45  55     65
+ * Preoder : 50 40 30 45 60 55 65
  * <p>
  * <p>
  * Inorder traversal:
@@ -52,6 +53,11 @@ public class BinaryTreeTest {
         root.right.right = new TreeNode(65);
 
         return new BinaryTree(root);
+        //              50 
+        //          40 
+        //     35        45
+        //RLR
+        // 50,40,35,45
     }
 
     static BinaryTree buildLeftUnbalancedBinaryTree() {
@@ -98,33 +104,76 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void testInorderTraversalForEmptyTree() {
+    public void testPreorderTraversal() {
+        BinaryTree binaryTree = buildCompleteBinaryTree();
+
+        // 50 40 30 45 60 55 65
+        List<Integer> expectedList = Arrays.asList(50, 40, 35, 45, 60, 55, 65);
+
+        List<Integer> preorderNodes = binaryTree.preorder();
+
+        Assert.assertEquals(expectedList, preorderNodes);
+    }
+
+     @Test
+     public void testInorderTraversalForEmptyTree() {
+         BinaryTree binaryTree = new BinaryTree(null);
+
+         List<Integer> inorderNodes = binaryTree.inorder();
+
+         Assert.assertTrue(inorderNodes.isEmpty());
+     }
+
+    @Test
+    public void testPreorderTraversalForEmptyTree() {
         BinaryTree binaryTree = new BinaryTree(null);
 
-        List<Integer> inorderNodes = binaryTree.inorder();
+        List<Integer> preorderNodes = binaryTree.preorder();
 
-        Assert.assertTrue(inorderNodes.isEmpty());
+        Assert.assertTrue(preorderNodes.isEmpty());
     }
 
+     @Test
+     public void testLeftUnbalancedInorderTraversal() {
+         BinaryTree binaryTree = buildLeftUnbalancedBinaryTree();
+
+         List<Integer> expectedList = Arrays.asList(45,35,40,50);
+
+         List<Integer> inorderNodes = binaryTree.inorder();
+
+         Assert.assertEquals(expectedList, inorderNodes);
+     }
+
     @Test
-    public void testLeftUnbalancedInorderTraversal() {
+    public void testLeftUnbalancedPreorderTraversal() {
         BinaryTree binaryTree = buildLeftUnbalancedBinaryTree();
 
-        List<Integer> expectedList = Arrays.asList(45,35,40,50);
+        List<Integer> expectedList = Arrays.asList(50 , 40 , 35 , 45);
 
-        List<Integer> inorderNodes = binaryTree.inorder();
+        List<Integer> preorderNodes = binaryTree.preorder();
 
-        Assert.assertEquals(expectedList, inorderNodes);
+        Assert.assertEquals(expectedList, preorderNodes);
     }
 
+     @Test
+     public void testRightUnbalancedInorderTraversal() {
+         BinaryTree binaryTree = buildRightUnbalancedBinaryTree();
+
+         List<Integer> expectedList = Arrays.asList(50,60,55,65);
+
+         List<Integer> inorderNodes = binaryTree.inorder();
+
+         Assert.assertEquals(expectedList, inorderNodes);
+     }
+
     @Test
-    public void testRightUnbalancedInorderTraversal() {
+    public void testRightUnbalancedPreorderTraversal() {
         BinaryTree binaryTree = buildRightUnbalancedBinaryTree();
 
         List<Integer> expectedList = Arrays.asList(50,60,55,65);
 
-        List<Integer> inorderNodes = binaryTree.inorder();
+        List<Integer> preorderNodes = binaryTree.preorder();
 
-        Assert.assertEquals(expectedList, inorderNodes);
+        Assert.assertEquals(expectedList, preorderNodes);
     }
 }

@@ -27,4 +27,19 @@ public class BinaryTree {
         traverseInorder(treeNode.right, inorderList);
 
     }
+
+    public List<Integer> preorder() {
+        List<Integer> inorderList = new ArrayList<>();
+        traversePreorder(_root, inorderList);
+        return inorderList;
+    }
+
+    private void traversePreorder(TreeNode treeNode, List<Integer> inorderList) {
+        if (treeNode == null) return;
+
+        inorderList.add(treeNode.val);
+        traversePreorder(treeNode.left, inorderList);
+        traversePreorder(treeNode.right, inorderList);
+
+    }
 }
